@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código 808 - Maestría en Producción Musical</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --deep-black: #0a0a0a;
+            --gold-metallic: #D4AF37;
+            --charcoal: #121212;
+            --silver-accent: #C0C0C0;
+            --pure-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, var(--deep-black), var(--charcoal));
+            color: var(--pure-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%),
+                url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="200" height="200" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            z-index: 1000;
+        }
+
+        .glass-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(15px);
+            background: rgba(18, 18, 18, 0.7);
+            z-index: 100;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--gold-metallic), var(--pure-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--silver-accent);
+            margin-bottom: 30px;
+        }
+
+        .registration-panel {
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            width: 450px;
+            animation: glowPulse 3s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .registration-panel:hover {
+            transform: scale(1.02);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--gold-metallic);
+            color: var(--pure-white);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-metallic);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 15px;
+            background: var(--gold-metallic);
+            color: var(--deep-black);
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            background: white;
+            transform: translateY(-5px);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .benefit-card {
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--gold-metallic);
+            margin-bottom: 20px;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        footer {
+            background: var(--charcoal);
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            .benefits-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    
+    <nav class="glass-nav">
+        <div class="container">
+            <div class="nav-content">
+                <!-- Navigation content here -->
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Domina el Arte de Vender Beats</h1>
+                    <p class="hero-subtitle">Transforma tu pasión musical en un imperio digital con estrategias de élite</p>
+                </div>
+                <div class="registration-panel">
+                    <form id="myForm" method="POST" action="YOUR_WEB_APP_URL">
+    <div class="input-group">
+        <input type="text" name="NombreCompleto" class="form-control" placeholder="Nombre Completo" required>
+    </div>
+    <div class="input-group">
+        <input type="email" name="CorreoElectronico" class="form-control" placeholder="Correo Electrónico Profesional" required>
+    </div>
+    <button type="submit" class="btn-register">Inscríbete Ahora</button>
+</form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-bullhorn benefit-icon"></i>
+                    <h3>Marketing Avanzado</h3>
+                    <p>Estrategias de promoción de vanguardia</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-chart-line benefit-icon"></i>
+                    <h3>Escalabilidad</h3>
+                    <p>Multiplica tus ingresos exponencialmente</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-globe benefit-icon"></i>
+                    <h3>Red Global</h3>
+                    <p>Conecta con productores de élite mundial</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-laptop benefit-icon"></i>
+                    <h3>Educación Online</h3>
+                    <p>Aprende desde cualquier lugar del mundo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Código 808. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+document.getElementById('myForm').onsubmit = function(event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData(this);
+    
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => alert(data))
+    .catch(error => console.error('Error:', error));
+};
+</script>
+</body>
+</html>
