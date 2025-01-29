@@ -1,419 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record Label</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css" rel="stylesheet">
     <style>
-        /* Reset and base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: #000;
-            color: #fff;
-            line-height: 1.6;
-        }
+      body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        background: #000;
+        color: #fff;
+        line-height: 1.6;
+      }
 
-        /* Header styles */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: box-shadow 0.3s ease;
-        }
+      /* Header styles */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        transition: box-shadow 0.3s ease;
+      }
 
-        header.scrolled {
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-        }
+      header.scrolled {
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+      }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #fff;
+      }
+
+      /* Button styles */
+      .btn {
+        background: #111;
+        color: #fff;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #222;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      }
+
+      /* Hero section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(45deg, #000, #111);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        color: #ccc;
+        margin-bottom: 2rem;
+      }
+
+      /* Artists section */
+      .artists {
+        padding: 8rem 2rem;
+        background: #111;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 4rem;
+      }
+
+      .artist-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .artist-card {
+        aspect-ratio: 1;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .artist-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .artist-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+      }
+
+      .artist-card:hover .artist-info {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* About section */
+      .about {
+        padding: 8rem 2rem;
+        background: #000;
+        text-align: center;
+      }
+
+      .about-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* Sign-up section */
+      .signup {
+        padding: 8rem 2rem;
+        background: #111;
+        text-align: center;
+      }
+
+      .email-form {
+        max-width: 500px;
+        margin: 2rem auto;
+        display: flex;
+        gap: 1rem;
+      }
+
+      .email-form input {
+        flex: 1;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 8px;
+        background: #000;
+        color: #fff;
+      }
+
+      /* Footer */
+      footer {
+        padding: 4rem 2rem;
+        background: #000;
+        text-align: center;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .social-links a {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .social-links a:hover {
+        color: #fff;
+      }
+
+      /* Modal */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: #111;
+        padding: 2rem;
+        border-radius: 8px;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
         }
 
         .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        /* Button styles */
-        .btn {
-            background: #111;
-            color: #fff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #222;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-
-        /* Hero section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(45deg, #000, #111);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #ccc;
-            margin-bottom: 2rem;
-        }
-
-        /* Artists section */
-        .artists {
-            padding: 8rem 2rem;
-            background: #111;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .artist-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .artist-card {
-            aspect-ratio: 1;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .artist-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .artist-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2rem;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
-
-        .artist-card:hover .artist-info {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* About section */
-        .about {
-            padding: 8rem 2rem;
-            background: #000;
-            text-align: center;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Sign-up section */
-        .signup {
-            padding: 8rem 2rem;
-            background: #111;
-            text-align: center;
+          display: none;
         }
 
         .email-form {
-            max-width: 500px;
-            margin: 2rem auto;
-            display: flex;
-            gap: 1rem;
+          flex-direction: column;
         }
-
-        .email-form input {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 8px;
-            background: #000;
-            color: #fff;
-        }
-
-        /* Footer */
-        footer {
-            padding: 4rem 2rem;
-            background: #000;
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .social-links a {
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #fff;
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #111;
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .email-form {
-                flex-direction: column;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <div class="logo">CÓDIGO 808</div>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#artists">Artists</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-                <button class="btn" id="signupBtn">Sign Up</button>
-            </div>
-        </nav>
+      <nav>
+        <div class="logo">CÓDIGO 808</div>
+        <div class="nav-links">
+          <a href="#home">Inicio</a>
+          <a href="#artists">Artistas</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contacto</a>
+          <button class="btn" id="signupBtn">Regístrate</button>
+        </div>
+      </nav>
     </header>
-
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>The Future of Music Starts Here.</h1>
-            <p>Join our movement. Exclusive music, artist opportunities, and more.</p>
-            <button class="btn" id="earlyAccessBtn">Get Early Access</button>
-        </div>
+      <div class="hero-content">
+        <h1>El futuro de la música.</h1>
+        <p>Únete a nuestro movimiento. Música exclusiva, oportunidades para artistas y más.</p>
+        <button class="btn" id="earlyAccessBtn">Obtén acceso</button>
+      </div>
     </section>
-
     <section class="artists" id="artists">
-        <h2 class="section-title">Meet Our Artists</h2>
-        <div class="artist-grid">
-            <div class="artist-card">
-                <img src="/api/placeholder/400/400" alt="Artist 1">
-                <div class="artist-info">
-                    <h3>Coming Soon</h3>
-                </div>
-            </div>
-            <div class="artist-card">
-                <img src="/api/placeholder/400/400" alt="Artist 2">
-                <div class="artist-info">
-                    <h3>Coming Soon</h3>
-                </div>
-            </div>
-            <div class="artist-card">
-                <img src="/api/placeholder/400/400" alt="Artist 3">
-                <div class="artist-info">
-                    <h3>Coming Soon</h3>
-                </div>
-            </div>
+      <h2 class="section-title">Conoce a nuestros artistas</h2>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <img src="/api/placeholder/400/400" alt="Artist 1">
+          <div class="artist-info">
+            <h3>Coming Soon</h3>
+          </div>
         </div>
+        <div class="artist-card">
+          <img src="/api/placeholder/400/400" alt="Artist 2">
+          <div class="artist-info">
+            <h3>Coming Soon</h3>
+          </div>
+        </div>
+        <div class="artist-card">
+          <img src="/api/placeholder/400/400" alt="Artist 3">
+          <div class="artist-info">
+            <h3>Coming Soon</h3>
+          </div>
+        </div>
+      </div>
     </section>
-
     <section class="about" id="about">
-        <div class="about-content">
-            <h2 class="section-title">A Label Built for the Next Generation</h2>
-            <p>We're creating a new kind of record label. One that understands the modern music landscape and puts artists first. Our mission is to discover and nurture unique talents while building a community that celebrates creativity and innovation.</p>
-        </div>
+      <div class="about-content">
+        <h2 class="section-title">Un sello discográfico creado para la próxima generación</h2>
+        <p>Estamos creando un nuevo tipo de sello discográfico. Uno que entiende el panorama musical moderno y pone a los artistas en primer lugar. Nuestra misión es descubrir y nutrir talentos únicos mientras construimos una comunidad que celebra la creatividad y la innovación.</p>
+      </div>
     </section>
-
     <section class="signup" id="contact">
-        <h2 class="section-title">Want to Join Us?</h2>
-        <p>We're looking for talented artists. Sign up to get updates on opportunities.</p>
-        <form class="email-form" id="emailForm">
-            <input type="email" placeholder="Enter your email" required>
-            <button type="submit" class="btn">Notify Me</button>
-        </form>
+      <h2 class="section-title">¿Quieres unirte a nosotros?</h2>
+      <p>Estamos buscando artistas talentosos. Regístrate para recibir actualizaciones sobre oportunidades.</p>
+      <form class="email-form" id="emailForm">
+        <input type="email" placeholder="correo electrónico" required>
+        <button type="submit" class="btn">Notifícame</button>
+      </form>
     </section>
-
     <footer>
-        <div class="social-links">
-            <a href="#" aria-label="Instagram">Instagram</a>
-            <a href="#" aria-label="Twitter">Twitter</a>
-            <a href="#" aria-label="YouTube">YouTube</a>
-        </div>
-        <p>&copy; 2025 CÓDIGO 808. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="Twitter">Twitter</a>
+        <a href="#" aria-label="YouTube">YouTube</a>
+      </div>
+      <p>&copy; 2025 CÓDIGO 808. Todos los derechos reservados.</p>
     </footer>
-
     <div class="modal" id="signupModal">
-        <div class="modal-content">
-            <button class="close-modal">&times;</button>
-            <h2>Join Our Community</h2>
-            <p>Get exclusive updates and early access to releases.</p>
-            <form class="email-form">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn">Sign Up</button>
-            </form>
-        </div>
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2>Únete a Nuestra Comunidad</h2>
+        <p>Obtén actualizaciones exclusivas y acceso anticipado a lanzamientos.</p>
+        <form class="email-form">
+          <input type="email" placeholder="Introduce tu correo electrónico" required>
+          <button type="submit" class="btn">Regístrate</button>
+        </form>
+      </div>
     </div>
-
     <script>
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Modal functionality
-        const modal = document.getElementById('signupModal');
-        const signupBtn = document.getElementById('signupBtn');
-        const earlyAccessBtn = document.getElementById('earlyAccessBtn');
-        const closeModal = document.querySelector('.close-modal');
-
-        function toggleModal() {
-            modal.classList.toggle('active');
+      // Header scroll effect
+      window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
         }
+      });
+      // Modal functionality
+      const modal = document.getElementById('signupModal');
+      const signupBtn = document.getElementById('signupBtn');
+      const earlyAccessBtn = document.getElementById('earlyAccessBtn');
+      const closeModal = document.querySelector('.close-modal');
 
-        signupBtn.addEventListener('click', toggleModal);
-        earlyAccessBtn.addEventListener('click', toggleModal);
-        closeModal.addEventListener('click', toggleModal);
-
-        // Close modal when clicking outside
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                toggleModal();
-            }
+      function toggleModal() {
+        modal.classList.toggle('active');
+      }
+      signupBtn.addEventListener('click', toggleModal);
+      earlyAccessBtn.addEventListener('click', toggleModal);
+      closeModal.addEventListener('click', toggleModal);
+      // Close modal when clicking outside
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          toggleModal();
+        }
+      });
+      // Smooth scroll for navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
         });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+      });
+      // Form submission
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = e.target.querySelector('input[type="email"]').value;
+          // Here you would typically send the email to your backend
+          alert('Thanks for signing up! We\'ll be in touch soon.');
+          e.target.reset();
+          if (modal.classList.contains('active')) {
+            toggleModal();
+          }
         });
-
-        // Form submission
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = e.target.querySelector('input[type="email"]').value;
-                // Here you would typically send the email to your backend
-                alert('Thanks for signing up! We\'ll be in touch soon.');
-                e.target.reset();
-                if (modal.classList.contains('active')) {
-                    toggleModal();
-                }
-            });
-        });
+      });
     </script>
-</body>
+  </body>
 </html>
