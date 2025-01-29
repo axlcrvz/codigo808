@@ -390,18 +390,31 @@
         });
       });
       // Form submission
-      document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const email = e.target.querySelector('input[type="email"]').value;
-          // Here you would typically send the email to your backend
-          alert('Thanks for signing up! We\'ll be in touch soon.');
-          e.target.reset();
-          if (modal.classList.contains('active')) {
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = e.target.querySelector('input[type="email"]').value;
+        
+        // Send data to Google Apps Script web app
+        fetch('https://script.google.com/macros/s/AKfycbzJSIs1Cz-1aFd9seSSfaYIvJwBjctTB6bLJydek1GvekwA-ne-Wl1ODQjniZEpWIqIgw/exec', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `email=${email}`
+        })
+        .then(response => response.text())
+        .then(message => console.log(message))
+        .catch(error => console.error('Error:', error));
+
+        alert('Thanks for signing up! We\'ll be in touch soon.');
+        e.target.reset();
+        if (modal.classList.contains('active')) {
             toggleModal();
-          }
-        });
-      });
+        }
+    });
+});
+
     </script>
   </body>
 </html>
