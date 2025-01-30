@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Record Label</title>
+    <title>CODIGO 808</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css" rel="stylesheet">
     <style>
       /* Reset and base styles */
@@ -274,6 +274,34 @@
           flex-direction: column;
         }
       }
+
+      .video-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .responsive-iframe {
+        position: relative;
+        padding-bottom: 56.25%;
+        /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        /* Optional: adds rounded corners */
+        background: #000;
+        /* Optional: adds a background color while video loads */
+      }
+
+      .responsive-iframe iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
     </style>
   </head>
   <body>
@@ -282,8 +310,9 @@
         <div class="logo">CÓDIGO 808</div>
         <div class="nav-links">
           <a href="#home">Inicio</a>
+          <a href="#lanzamientos">Lanzamientos</a>
           <a href="#artists">Artistas</a>
-          <a href="#about">About</a>
+          <a href="#about">Acerca</a>
           <a href="#contact">Contacto</a>
           <button class="btn" id="signupBtn">Regístrate</button>
         </div>
@@ -291,9 +320,17 @@
     </header>
     <section class="hero" id="home">
       <div class="hero-content">
-        <h1>El futuro de la música.</h1>
+        <h1>La Nueva Generación.</h1>
         <p>Únete a nuestro movimiento. Música exclusiva, oportunidades para artistas y más.</p>
         <button class="btn" id="earlyAccessBtn">Obtén acceso</button>
+      </div>
+    </section>
+    <section class="artists" id="lanzamientos">
+      <h2 class="section-title">Escucha nuestro ultimo lanzamiento</h2>
+      <div class="video-container">
+        <div class="responsive-iframe">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/3q439iP3JX0?si=jiuPshJpUlyeycc-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
       </div>
     </section>
     <section class="artists" id="artists">
@@ -335,9 +372,9 @@
     </section>
     <footer>
       <div class="social-links">
-        <a href="#" aria-label="Instagram">Instagram</a>
-        <a href="#" aria-label="Twitter">Twitter</a>
-        <a href="#" aria-label="YouTube">YouTube</a>
+        <a href="https://www.instagram.com/codigo808/" aria-label="Instagram">Instagram</a>
+        <a href="https://www.tiktok.com/@codigo808" aria-label="TikTok">TikTok</a>
+        <a href="https://www.youtube.com/@Codigo808" aria-label="YouTube">YouTube</a>
       </div>
       <p>&copy; 2025 CÓDIGO 808. Todos los derechos reservados.</p>
     </footer>
@@ -390,31 +427,25 @@
         });
       });
       // Form submission
-document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = e.target.querySelector('input[type="email"]').value;
-        
-        // Send data to Google Apps Script web app
-        fetch('https://script.google.com/macros/s/AKfycbzJSIs1Cz-1aFd9seSSfaYIvJwBjctTB6bLJydek1GvekwA-ne-Wl1ODQjniZEpWIqIgw/exec', {
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = e.target.querySelector('input[type="email"]').value;
+          // Send data to Google Apps Script web app
+          fetch('https://script.google.com/macros/s/AKfycbzJSIs1Cz-1aFd9seSSfaYIvJwBjctTB6bLJydek1GvekwA-ne-Wl1ODQjniZEpWIqIgw/exec', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+              'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: `email=${email}`
-        })
-        .then(response => response.text())
-        .then(message => console.log(message))
-        .catch(error => console.error('Error:', error));
-
-        alert('¡Gracias por registrarte! Nos pondremos en contacto contigo pronto.');
-        e.target.reset();
-        if (modal.classList.contains('active')) {
+          }).then(response => response.text()).then(message => console.log(message)).catch(error => console.error('Error:', error));
+          alert('¡Gracias por registrarte! Nos pondremos en contacto contigo pronto.');
+          e.target.reset();
+          if (modal.classList.contains('active')) {
             toggleModal();
-        }
-    });
-});
-
+          }
+        });
+      });
     </script>
   </body>
 </html>
